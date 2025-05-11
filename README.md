@@ -84,4 +84,3 @@ Portanto, medir o desempenho e comparar os valores de latência, throughput, esc
 
 9. Criar um ambiente virtual dentro do projeto, para que as versões das dependências do Python neste projeto não apresentem conflitos com versões de outros projetos. Rodar o comando abaixo no VSCode, dentro da pasta do projeto:
 # poetry install
-
