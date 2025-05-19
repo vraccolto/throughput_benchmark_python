@@ -7,12 +7,14 @@ readme = "README.md"
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.12"  # Aqui você especifica a versão do Python suportada
+python = ">=3.12,<3.14"
+#python = "^3.12"
 python-dotenv = "^1.1.0"
 pymongo = "^4.12.1"
 pyodbc = "^5.2.0"
 pandas = "^2.2.3"
 sqlalchemy = "^2.0.40"
+pyinstaller = "^6.13.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

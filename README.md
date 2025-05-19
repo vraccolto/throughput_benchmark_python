@@ -24,63 +24,63 @@ Portanto, medir o desempenho e comparar os valores de latência, throughput, esc
 
 
 
-# Preparação do ambiente Linux, utilizando o WSL do Windows para rodar o Docker e utilizar containers do SQL Server e MongoDB
+Preparação do ambiente Linux, utilizando o WSL do Windows para rodar o Docker e utilizar containers do SQL Server e MongoDB
 
 
-1. Instalação do sistema operacional Linux (Ubuntu). Rodar o comando abaixo no PowerShell do Windows:
-# wsl --install -d Ubuntu-22.04
+# Instalação do sistema operacional Linux (Ubuntu). Rodar o comando abaixo no PowerShell do Windows:
+wsl --install -d Ubuntu-22.04
 
-2. Instalação do Docker dentro do Ubuntu. Rodar os comandos abaixo no WSL:
-# sudo apt update
-# sudo apt install -y ca-certificates curl gnupg lsb-release
+# Instalação do Docker dentro do Ubuntu. Rodar os comandos abaixo no WSL:
+sudo apt update
+sudo apt install -y ca-certificates curl gnupg lsb-release
 
-# sudo mkdir -p /etc/apt/keyrings
-# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-# sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
-# echo \
-#  "deb [arch=$(dpkg --print-architecture) \
-#  signed-by=/etc/apt/keyrings/docker.gpg] \
-#  https://download.docker.com/linux/ubuntu \
-#  $(lsb_release -cs) stable" | \
-#  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo \
+ "deb [arch=$(dpkg --print-architecture) \
+ signed-by=/etc/apt/keyrings/docker.gpg] \
+ https://download.docker.com/linux/ubuntu \
+ $(lsb_release -cs) stable" | \
+ sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-# sudo apt update
-# sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-3. Instalar a imagem do SQL Server e criar um container dentro do Docker. Rodar o comando abaixo no WSL:
-# docker run -e "ACCEPT_EULA=Y" \
-#           -e "SA_PASSWORD=SuaSenha!123" \
-#           -p 1433:1433 \
-#           --name sqlserver \
-#           -d mcr.microsoft.com/mssql/server:2022-latest
+# Instalar a imagem do SQL Server e criar um container dentro do Docker. Rodar o comando abaixo no WSL:
+docker run -e "ACCEPT_EULA=Y" \
+         -e "SA_PASSWORD=SuaSenha!123" \
+          -p 1433:1433 \
+          --name sqlserver \
+          -d mcr.microsoft.com/mssql/server:2022-latest
 
-4. Instalar a imagem do MongoDB e criar um container dentro do Docker. Rodar o comando abaixo no WSL:
-# docker run -d \
-#  --name mongodb \
-#  -e MONGO_INITDB_ROOT_USERNAME=root \
-#  -e MONGO_INITDB_ROOT_PASSWORD=senhamongo \
-#  -p 27017:27017 \
-#  mongo:7
+# Instalar a imagem do MongoDB e criar um container dentro do Docker. Rodar o comando abaixo no WSL:
+docker run -d \
+ --name mongodb \
+ -e MONGO_INITDB_ROOT_USERNAME=root \
+ -e MONGO_INITDB_ROOT_PASSWORD=senhamongo \
+ -p 27017:27017 \
+ mongo:7
 
-5. Instalar o pyenv para o Windows (gerenciador de versões do Python). Rodar os comandos abaixo no PowerShell:
-# Invoke-WebRequest -UseBasicParsing https://pyenv.run | Invoke-Expression
+# Instalar o pyenv para o Windows (gerenciador de versões do Python). Rodar os comandos abaixo no PowerShell:
+Invoke-WebRequest -UseBasicParsing https://pyenv.run | Invoke-Expression
 
-# $env:PYENV = "$HOME\.pyenv\pyenv-win"
-# $env:PATH = "$env:PYENV\bin;$env:PYENV\shims;" + $env:PATH
+$env:PYENV = "$HOME\.pyenv\pyenv-win"
+$env:PATH = "$env:PYENV\bin;$env:PYENV\shims;" + $env:PATH
 
-6. Instalar a versão do Python desejada através do pyenv. Rodar os comandos abaixo no PowerShell:
-# pyenv install --list
+# Instalar a versão do Python desejada através do pyenv. Rodar os comandos abaixo no PowerShell:
+pyenv install --list
 
-# pyenv install 3.xx.xx
+pyenv install 3.xx.xx
 
-7. Instalar o poetry (gerenciador de dependências do Python). Rodar os comandos abaixo no PowerShell:
-# (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | python -
+# Instalar o poetry (gerenciador de dependências do Python). Rodar os comandos abaixo no PowerShell:
+(Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | python -
 
-# $env:PATH += ";$env:USERPROFILE\AppData\Roaming\Python\Scripts"
+$env:PATH += ";$env:USERPROFILE\AppData\Roaming\Python\Scripts"
 
-8. Inicializar o poetry dentro do projeto. Rodar o comando abaixo no VSCode, dentro da pasta do projeto:
-# poetry init
+# Inicializar o poetry dentro do projeto. Rodar o comando abaixo no VSCode, dentro da pasta do projeto:
+poetry init
 
-9. Criar um ambiente virtual dentro do projeto, para que as versões das dependências do Python neste projeto não apresentem conflitos com versões de outros projetos. Rodar o comando abaixo no VSCode, dentro da pasta do projeto:
-# poetry install
+# Criar um ambiente virtual dentro do projeto, para que as versões das dependências do Python neste projeto não apresentem conflitos com versões de outros projetos. Rodar o comando abaixo no VSCode, dentro da pasta do projeto:
+poetry install
